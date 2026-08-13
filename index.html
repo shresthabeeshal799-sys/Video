@@ -1,0 +1,929 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Memory Frame — cinematic anime music video generator">
+  <title>Memory Frame — Anime Music Video Generator</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <div class="ambient ambient-a"></div>
+  <div class="ambient ambient-b"></div>
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+
+    <a class="brand" href="#">
+      <span class="brand-mark">✦</span>
+
+      <span>
+        <strong>MEMORY FRAME</strong>
+        <small>Anime Music Video Studio</small>
+      </span>
+    </a>
+
+    <div class="top-actions">
+
+      <button class="ghost-btn" id="saveProjectBtn">
+        Save Project
+      </button>
+
+      <label class="ghost-btn file-btn">
+        Load Project
+        <input
+          id="loadProjectInput"
+          type="file"
+          accept=".json,application/json"
+        >
+      </label>
+
+    </div>
+
+  </header>
+
+
+  <main class="app-shell">
+
+    <!-- HERO -->
+    <section class="hero">
+
+      <div>
+
+        <p class="eyebrow">
+          CINEMATIC ANIME STORYTELLING
+        </p>
+
+        <h1>
+          Turn your memories into an
+          <span>anime music video.</span>
+        </h1>
+
+        <p class="hero-copy">
+          Build scenes with your character references, backgrounds,
+          guitar prop, camera direction and story prompts.
+          The front-end is GitHub Pages ready and can connect
+          to your own secure video-generation backend.
+        </p>
+
+      </div>
+
+      <div class="hero-badge">
+
+        <span class="pulse-dot"></span>
+
+        <span id="connectionLabel">
+          Demo mode
+        </span>
+
+      </div>
+
+    </section>
+
+
+    <!-- WORKSPACE -->
+    <section class="workspace">
+
+
+      <!-- ASSETS -->
+      <aside class="panel assets-panel">
+
+        <div class="panel-head">
+
+          <div>
+
+            <p class="section-kicker">
+              01 / REFERENCES
+            </p>
+
+            <h2>
+              Characters & Assets
+            </h2>
+
+          </div>
+
+          <button
+            class="icon-btn"
+            id="resetAssetsBtn"
+            title="Reset asset selections"
+          >
+            ↺
+          </button>
+
+        </div>
+
+
+        <!-- SAMZANA -->
+        <div class="asset-group">
+
+          <div class="group-title">
+
+            <span>
+              Samzana
+            </span>
+
+            <label class="mini-upload">
+              Upload
+              <input
+                type="file"
+                id="samzanaUpload"
+                accept="image/*"
+              >
+            </label>
+
+          </div>
+
+          <div
+            class="asset-card selected"
+            data-role="samzana"
+            id="samzanaCard"
+          >
+
+            <img
+              id="samzanaPreview"
+              src="assets/samzana.png"
+              alt="Samzana reference"
+            >
+
+            <div class="asset-overlay">
+
+              <strong>
+                Samzana
+              </strong>
+
+              <span>
+                Character reference
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- BEESHAL -->
+        <div class="asset-group">
+
+          <div class="group-title">
+
+            <span>
+              Beeshal
+            </span>
+
+            <label class="mini-upload">
+              Upload
+              <input
+                type="file"
+                id="beeshalUpload"
+                accept="image/*"
+              >
+            </label>
+
+          </div>
+
+          <div
+            class="asset-card selected"
+            data-role="beeshal"
+            id="beeshalCard"
+          >
+
+            <img
+              id="beeshalPreview"
+              src="assets/beeshal.png"
+              alt="Beeshal reference"
+            >
+
+            <div class="asset-overlay">
+
+              <strong>
+                Beeshal
+              </strong>
+
+              <span>
+                Character reference
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- GUITAR -->
+        <div class="asset-group">
+
+          <div class="group-title">
+
+            <span>
+              Guitar
+            </span>
+
+            <label class="mini-upload">
+              Upload
+              <input
+                type="file"
+                id="guitarUpload"
+                accept="image/*"
+              >
+            </label>
+
+          </div>
+
+          <div
+            class="asset-card prop-card selected"
+            data-role="guitar"
+            id="guitarCard"
+          >
+
+            <img
+              id="guitarPreview"
+              src="assets/guitar.png"
+              alt="Guitar reference"
+            >
+
+            <div class="asset-overlay">
+
+              <strong>
+                Guitar
+              </strong>
+
+              <span>
+                Prop reference
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- BACKGROUNDS -->
+        <div class="asset-group">
+
+          <div class="group-title">
+
+            <span>
+              Backgrounds
+            </span>
+
+            <label class="mini-upload">
+              Add
+              <input
+                type="file"
+                id="backgroundUpload"
+                accept="image/*"
+                multiple
+              >
+            </label>
+
+          </div>
+
+          <div
+            class="background-grid"
+            id="backgroundGrid"
+          ></div>
+
+        </div>
+
+      </aside>
+
+
+      <!-- EDITOR -->
+      <section class="panel editor-panel">
+
+        <div class="panel-head">
+
+          <div>
+
+            <p class="section-kicker">
+              02 / STORYBOARD
+            </p>
+
+            <h2>
+              Scene Director
+            </h2>
+
+          </div>
+
+          <div class="scene-tools">
+
+            <button
+              class="secondary-btn"
+              id="duplicateSceneBtn"
+            >
+              Duplicate
+            </button>
+
+            <button
+              class="danger-btn"
+              id="deleteSceneBtn"
+            >
+              Delete
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <!-- SCENE TABS -->
+        <div
+          class="scene-strip"
+          id="sceneStrip"
+        ></div>
+
+
+        <!-- SCENE EDITOR -->
+        <div class="scene-editor">
+
+
+          <!-- PREVIEW -->
+          <div class="preview-wrap">
+
+            <div class="preview-label">
+
+              <span id="previewSceneTitle">
+                Scene 01 — The Empty Room
+              </span>
+
+              <span id="previewDuration">
+                6s
+              </span>
+
+            </div>
+
+
+            <div
+              class="video-preview"
+              id="videoPreview"
+            >
+
+              <img
+                id="sceneBackgroundPreview"
+                src=""
+                alt="Selected scene background"
+              >
+
+              <div class="preview-vignette"></div>
+
+              <div class="preview-content">
+
+
+                <div
+                  class="preview-character character-left"
+                  id="previewBeeshal"
+                >
+
+                  <img
+                    src="assets/beeshal.png"
+                    alt="Beeshal"
+                  >
+
+                </div>
+
+
+                <div
+                  class="preview-character character-right"
+                  id="previewSamzana"
+                >
+
+                  <img
+                    src="assets/samzana.png"
+                    alt="Samzana"
+                  >
+
+                </div>
+
+
+                <div
+                  class="preview-caption"
+                  id="previewCaption"
+                >
+                  A quiet memory begins.
+                </div>
+
+              </div>
+
+
+              <div
+                class="preview-status"
+                id="previewStatus"
+              >
+                STILL PREVIEW
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <!-- CONTROLS -->
+          <div class="controls">
+
+
+            <div class="form-row two">
+
+              <label>
+
+                Scene title
+
+                <input
+                  id="sceneTitle"
+                  type="text"
+                >
+
+              </label>
+
+
+              <label>
+
+                Duration
+
+                <select id="sceneDuration">
+
+                  <option value="4">
+                    4 seconds
+                  </option>
+
+                  <option value="5">
+                    5 seconds
+                  </option>
+
+                  <option value="6">
+                    6 seconds
+                  </option>
+
+                  <option value="8">
+                    8 seconds
+                  </option>
+
+                  <option value="10">
+                    10 seconds
+                  </option>
+
+                </select>
+
+              </label>
+
+            </div>
+
+
+            <div class="form-row two">
+
+              <label>
+
+                Background
+
+                <select id="sceneBackground"></select>
+
+              </label>
+
+
+              <label>
+
+                Characters
+
+                <select id="sceneCharacters">
+
+                  <option value="beeshal">
+                    Beeshal only
+                  </option>
+
+                  <option value="samzana">
+                    Samzana only
+                  </option>
+
+                  <option value="both">
+                    Beeshal + Samzana
+                  </option>
+
+                  <option value="none">
+                    No character
+                  </option>
+
+                </select>
+
+              </label>
+
+            </div>
+
+
+            <div class="form-row two">
+
+              <label>
+
+                Camera
+
+                <select id="sceneCamera">
+
+                  <option>
+                    Slow cinematic push-in
+                  </option>
+
+                  <option>
+                    Slow pull-back
+                  </option>
+
+                  <option>
+                    Wide establishing shot
+                  </option>
+
+                  <option>
+                    Close-up
+                  </option>
+
+                  <option>
+                    Slow orbit
+                  </option>
+
+                  <option>
+                    Tracking shot
+                  </option>
+
+                  <option>
+                    Handheld emotional movement
+                  </option>
+
+                </select>
+
+              </label>
+
+
+              <label>
+
+                Emotion
+
+                <select id="sceneEmotion">
+
+                  <option>
+                    Melancholic
+                  </option>
+
+                  <option>
+                    Nostalgic
+                  </option>
+
+                  <option>
+                    Warm and happy
+                  </option>
+
+                  <option>
+                    Hopeful
+                  </option>
+
+                  <option>
+                    Dreamlike
+                  </option>
+
+                  <option>
+                    Dramatic
+                  </option>
+
+                  <option>
+                    Peaceful
+                  </option>
+
+                </select>
+
+              </label>
+
+            </div>
+
+
+            <label class="full-label">
+
+              Scene prompt
+
+              <textarea
+                id="scenePrompt"
+                rows="8"
+                placeholder="Describe the action, movement, emotion and cinematic direction for this scene..."
+              ></textarea>
+
+            </label>
+
+
+            <div class="prompt-actions">
+
+              <button
+                class="secondary-btn"
+                id="enhancePromptBtn"
+              >
+                ✦ Enhance Prompt
+              </button>
+
+              <span id="promptCount">
+                0 characters
+              </span>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- GENERATION -->
+        <div class="generation-bar">
+
+          <div class="generation-info">
+
+            <span class="status-ring"></span>
+
+            <div>
+
+              <strong id="generationTitle">
+                Ready to generate
+              </strong>
+
+              <small id="generationSubtitle">
+                Select a scene and connect your video API when ready.
+              </small>
+
+            </div>
+
+          </div>
+
+
+          <button
+            class="generate-btn"
+            id="generateBtn"
+          >
+            🎬 Generate Scene
+          </button>
+
+        </div>
+
+      </section>
+
+    </section>
+
+
+    <!-- TIMELINE -->
+    <section class="panel timeline-panel">
+
+      <div class="panel-head">
+
+        <div>
+
+          <p class="section-kicker">
+            03 / FINAL CUT
+          </p>
+
+          <h2>
+            Music Video Timeline
+          </h2>
+
+        </div>
+
+
+        <div class="timeline-actions">
+
+          <label class="secondary-btn file-btn">
+
+            Add Music
+
+            <input
+              id="musicUpload"
+              type="file"
+              accept="audio/*"
+            >
+
+          </label>
+
+
+          <button
+            class="secondary-btn"
+            id="previewVideoBtn"
+          >
+            ▶ Preview Story
+          </button>
+
+
+          <button
+            class="primary-btn"
+            id="exportPlanBtn"
+          >
+            Export Generation Plan
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="timeline"
+        id="timeline"
+      ></div>
+
+
+      <div class="music-row">
+
+        <div class="music-icon">
+          ♫
+        </div>
+
+        <div class="music-meta">
+
+          <strong id="musicName">
+            No music selected
+          </strong>
+
+          <span id="musicMeta">
+            Add your song for the final edit.
+          </span>
+
+        </div>
+
+        <audio
+          id="audioPlayer"
+          controls
+          preload="metadata"
+        ></audio>
+
+      </div>
+
+    </section>
+
+
+    <!-- API SETTINGS -->
+    <section class="panel settings-panel">
+
+      <div class="panel-head">
+
+        <div>
+
+          <p class="section-kicker">
+            04 / CONNECTION
+          </p>
+
+          <h2>
+            Video API
+          </h2>
+
+        </div>
+
+        <span class="secure-note">
+          🔒 Keep secret API keys on your backend.
+        </span>
+
+      </div>
+
+
+      <div class="api-grid">
+
+        <label>
+
+          Backend endpoint
+
+          <input
+            id="apiEndpoint"
+            type="url"
+            placeholder="https://your-backend.example.com/api/generate"
+          >
+
+        </label>
+
+
+        <label>
+
+          Model name
+
+          <input
+            id="modelName"
+            type="text"
+            value="anime-video-model"
+            placeholder="Your provider/model"
+          >
+
+        </label>
+
+
+        <label>
+
+          Output ratio
+
+          <select id="aspectRatio">
+
+            <option value="16:9">
+              16:9 Landscape
+            </option>
+
+            <option value="9:16">
+              9:16 Vertical
+            </option>
+
+            <option value="1:1">
+              1:1 Square
+            </option>
+
+          </select>
+
+        </label>
+
+
+        <label>
+
+          Style
+
+          <select id="stylePreset">
+
+            <option value="cinematic-anime">
+              Cinematic anime
+            </option>
+
+            <option value="japanese-anime">
+              Japanese anime-inspired
+            </option>
+
+            <option value="soft-anime">
+              Soft emotional anime
+            </option>
+
+            <option value="film-anime">
+              Film-like anime
+            </option>
+
+          </select>
+
+        </label>
+
+      </div>
+
+
+      <p class="settings-help">
+
+        GitHub Pages hosts the interface. Your backend should receive
+        the scene JSON and reference images, call your chosen video
+        provider, then return a video URL. Do not put a provider secret
+        in this page.
+
+      </p>
+
+    </section>
+
+  </main>
+
+
+  <!-- TOAST -->
+  <div
+    class="toast"
+    id="toast"
+  ></div>
+
+
+  <!-- STORY MODAL -->
+  <div
+    class="modal hidden"
+    id="storyModal"
+  >
+
+    <div class="modal-card">
+
+      <button
+        class="modal-close"
+        id="closeModalBtn"
+      >
+        ×
+      </button>
+
+      <p class="section-kicker">
+        STORY PREVIEW
+      </p>
+
+      <h2>
+        Your anime story
+      </h2>
+
+      <div
+        class="story-preview-list"
+        id="storyPreviewList"
+      ></div>
+
+      <button
+        class="primary-btn wide"
+        id="closeStoryBtn"
+      >
+        Close
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <script src="app.js"></script>
+
+</body>
+</html>
